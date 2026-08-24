@@ -1,0 +1,347 @@
+/*
+ * styles.css – Visual design and responsive layout for Task Manager
+ * ---------------------------------------------------------------
+ * This stylesheet defines a modern, colourful theme using CSS variables,
+ * Flexbox/Grid layout, and accessible colour contrast. It styles the header,
+ * task entry form, search bar, filter buttons, and the task list. Dynamic
+ * classes for task state (completed, priority levels) are also provided.
+ */
+
+/* ---------------------------------------------------------------
+   CSS Variables – colour palette
+   --------------------------------------------------------------- */
+:root {
+  /* Primary & secondary brand colours */
+  --color-primary: #4a90e2;        /* vivid blue */
+  --color-primary-dark: #357ab8;   /* darkened for hover/focus */
+  --color-secondary: #50e3c2;      /* teal‑green */
+  --color-secondary-dark: #3bb8a0;
+
+  /* Accent (used for interactive elements) */
+  --color-accent: #e94e77;         /* pink/red */
+  --color-accent-dark: #c43c5f;
+
+  /* Background & text */
+  --color-bg: #f5f7fa;            /* very light grey */
+  --color-surface: #ffffff;       /* cards / list items */
+  --color-text: #333333;          /* dark enough contrast */
+  --color-muted: #777777;         /* for placeholder / secondary text */
+
+  /* Priority colours */
+  --color-priority-low: #8bc34a;   /* green */
+  --color-priority-medium: #ff9800;/* orange */
+  --color-priority-high: #f44336;  /* red */
+
+  /* Spacing */
+  --gap: 1rem;
+  --radius: 0.5rem;
+}
+
+/* ---------------------------------------------------------------
+   Global resets & base styles
+   --------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  padding: var(--gap);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ---------------------------------------------------------------
+   Layout containers
+   --------------------------------------------------------------- */
+header {
+  background: var(--color-primary);
+  color: #fff;
+  padding: calc(var(--gap) * 1.5) var(--gap);
+  text-align: center;
+  border-radius: var(--radius);
+  margin-bottom: var(--gap);
+}
+
+/* Task entry form – grid layout for larger screens */
+#task-entry {
+  background: var(--color-surface);
+  padding: var(--gap);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: var(--gap);
+}
+
+#task-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--gap);
+  align-items: end; /* align button with inputs */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.form-group .required {
+  color: var(--color-accent);
+}
+
+input[type="text"],
+input[type="date"],
+textarea,
+select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  font: inherit;
+  background-color: #fff;
+  color: var(--color-text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+textarea {
+  resize: vertical;
+}
+
+#add-task-button {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: background 0.2s;
+  align-self: flex-start; /* keep button left‑aligned in grid */
+}
+
+#add-task-button:hover,
+#add-task-button:focus {
+  background: var(--color-primary-dark);
+}
+
+/* ---------------------------------------------------------------
+   Search bar
+   --------------------------------------------------------------- */
+#search-section {
+  margin-bottom: var(--gap);
+  text-align: center;
+}
+
+#search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  font: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#search-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+  outline: none;
+}
+
+/* ---------------------------------------------------------------
+   Filter buttons
+   --------------------------------------------------------------- */
+#filter-section {
+  margin-bottom: var(--gap);
+  text-align: center;
+}
+
+#filter-buttons {
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+.filter-btn {
+  background: var(--color-secondary);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.filter-btn:hover,
+.filter-btn:focus {
+  background: var(--color-secondary-dark);
+}
+
+.filter-btn.active {
+  background: var(--color-primary);
+}
+
+/* ---------------------------------------------------------------
+   Task list
+   --------------------------------------------------------------- */
+#task-list-section {
+  background: var(--color-surface);
+  padding: var(--gap);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.task-item {
+  background: #fff;
+  border-left: 6px solid var(--color-primary);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.task-item:hover {
+  background: #f9f9f9;
+  transform: translateY(-1px);
+}
+
+.task-item .title {
+  font-weight: 600;
+  margin-right: 1rem;
+}
+
+.task-item .meta {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.task-item button {
+  background: transparent;
+  border: none;
+  color: var(--color-muted);
+  font-size: 1.2rem;
+  padding: 0.25rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.task-item button:hover {
+  color: var(--color-accent);
+}
+
+/* Completed tasks */
+.completed {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+/* Priority colour borders – overrides default primary border */
+.priority-low {
+  border-left-color: var(--color-priority-low);
+}
+
+.priority-medium {
+  border-left-color: var(--color-priority-medium);
+}
+
+.priority-high {
+  border-left-color: var(--color-priority-high);
+}
+
+/* ---------------------------------------------------------------
+   Footer
+   --------------------------------------------------------------- */
+footer {
+  margin-top: calc(var(--gap) * 2);
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+/* ---------------------------------------------------------------
+   Responsive – Mobile (≤600px)
+   --------------------------------------------------------------- */
+@media (max-width: 600px) {
+  body {
+    padding: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  header {
+    padding: 1rem 0.5rem;
+  }
+
+  #task-form {
+    grid-template-columns: 1fr; /* stack all fields */
+  }
+
+  #add-task-button {
+    width: 100%;
+    align-self: stretch;
+  }
+
+  #search-input {
+    max-width: 100%;
+  }
+
+  .task-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .task-item button {
+    align-self: flex-end;
+  }
+}

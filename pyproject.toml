@@ -1,0 +1,26 @@
+[project]
+name = "agentic-ai-lovable-copy"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "basaike", email = "nvrgonnastops@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "groq>=0.31.0",
+    "langchain>=0.3.27",
+    "langchain-core>=0.3.72",
+    "langchain-groq>=0.3.7",
+    "langgraph>=0.6.3",
+    "pip>=25.2",
+    "pydantic>=2.11.7",
+    "python-dotenv>=1.1.1",
+]
+
+[project.scripts]
+agentic-ai-lovable-copy = "agentic_ai_lovable_copy:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"

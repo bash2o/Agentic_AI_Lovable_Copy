@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Task Manager</h1>
+    </header>
+
+    <!-- Task Entry Form -->
+    <section id="task-entry">
+        <form id="task-form">
+            <div class="form-group">
+                <label for="task-title">Title<span class="required">*</span>:</label>
+                <input type="text" id="task-title" name="title" required />
+            </div>
+            <div class="form-group">
+                <label for="task-desc">Description:</label>
+                <textarea id="task-desc" name="description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="task-priority">Priority:</label>
+                <select id="task-priority" name="priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="task-due-date">Due Date:</label>
+                <input type="date" id="task-due-date" name="dueDate" />
+            </div>
+            <button type="submit" id="add-task-button">Add Task</button>
+        </form>
+    </section>
+
+    <!-- Search Bar -->
+    <section id="search-section">
+        <input type="text" id="search-input" placeholder="Search tasks..." />
+    </section>
+
+    <!-- Filter Buttons -->
+    <section id="filter-section">
+        <div id="filter-buttons">
+            <button type="button" data-filter="all" class="filter-btn active">All</button>
+            <button type="button" data-filter="active" class="filter-btn">Active</button>
+            <button type="button" data-filter="completed" class="filter-btn">Completed</button>
+        </div>
+    </section>
+
+    <!-- Task List -->
+    <section id="task-list-section">
+        <ul id="task-list"></ul>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <small>© 2024 Task Manager App. All rights reserved.</small>
+    </footer>
+</body>
+</html>
