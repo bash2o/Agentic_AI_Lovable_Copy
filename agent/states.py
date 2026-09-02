@@ -17,6 +17,12 @@ class Plan(BaseModel):
     features : list[str] = Field(
         description="A list of features that the app should have, e.g. 'user authentication', 'data visualization', etc."
     )
+    design_style : str = Field(
+        description="The visual design style of the application, such as modern, playful, elegant, girly, dark, or classic"
+    )
+    color_theme : str = Field(
+        description="The color theme of the application"
+    )
     files : list[File] = Field(description="A list of files to be created, each with a 'path' and 'purpose'")
 
 class  ImplementationTask(BaseModel):
